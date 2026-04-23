@@ -917,6 +917,28 @@
       color: var(--accent);
     }
 
+    .skill-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: color-mix(in oklab, var(--accent) 4%, var(--bg-2));
+      color: var(--ink-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+      border: 1px solid var(--line);
+      transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .skill:hover .skill-icon {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px var(--accent-mid);
+    }
+
     /* Experience */
     .exp-list {
       display: flex;
@@ -1206,37 +1228,58 @@
       display: flex;
       align-items: center;
       gap: 18px;
-      transition: .25s;
+      transition: all .35s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid transparent;
+      position: relative;
+      z-index: 1;
     }
 
     .cert:hover {
       background: var(--surface-2);
-      transform: translateX(4px);
+      transform: translateX(8px);
+      border-color: var(--line);
+      box-shadow: var(--shadow);
+      z-index: 2;
     }
 
     .cert .ic {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      display: grid;
-      place-items: center;
+      background: color-mix(in oklab, var(--accent) 4%, var(--bg-2));
+      color: var(--ink-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 18px;
       flex-shrink: 0;
+      border: 1px solid var(--line);
+      transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .cert:hover .ic {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 8px 16px var(--accent-mid);
     }
 
     .cert .body h5 {
       font-size: 14px;
       font-weight: 600;
       color: var(--ink);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      transition: color .3s ease;
+    }
+
+    .cert:hover .body h5 {
+      color: var(--accent);
     }
 
     .cert .body small {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
-      color: var(--ink);
+      color: var(--ink-3);
       letter-spacing: .05em;
     }
 
@@ -1847,6 +1890,40 @@
     [data-theme="dark"] .gh-link-personal:hover { background: rgba(192,57,43,.18); color: #f0a59d; }
     [data-theme="dark"] .gh-link-academic  { color: #64a8d6; border-color: rgba(100,168,214,.30); background: rgba(41,128,185,.08); }
     [data-theme="dark"] .gh-link-academic:hover { background: rgba(41,128,185,.18); color: #8cc0e0; }
+
+    /* Back-to-top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 90;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--accent);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity .3s, visibility .3s, transform .3s, background .2s, color .2s;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .back-to-top svg { width: 18px; height: 18px; }
   </style>
 </head>
 
@@ -1859,10 +1936,10 @@
 
   <!-- Navigation -->
   <nav class="nav" id="nav">
-    <a class="brand" href="#top">Prudhwi<span class="accent">.</span>Raj</a>
+    <a class="brand" href="#">Prudhwi<span class="accent">.</span>Raj</a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="#top">Home</a></li>
+        <li><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
@@ -1881,7 +1958,7 @@
     </div>
   </nav>
   <div class="mobile" id="mobile">
-    <a href="#top">Home</a>
+    <a href="#">Home</a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#experience">Experience</a>
@@ -1891,7 +1968,7 @@
   </div>
 
   <!-- Hero -->
-  <header class="hero" id="top">
+  <header class="hero" id="#">
     <div class="wrap">
       <div class="hero-grid">
         <div class="scroll-animate">
@@ -2016,6 +2093,7 @@
       </div>
       <div class="skill-grid">
         <div class="skill scroll-animate delay-0">
+          <div class="skill-icon"><i class="fas fa-server"></i></div>
           <div class="skill-cat">Backend</div>
           <div class="skill-name">Server-side</div>
           <div class="skill-pills"><span class="pill">Python</span><span class="pill">Django</span><span
@@ -2023,30 +2101,35 @@
               class="pill">RBAC</span></div>
         </div>
         <div class="skill scroll-animate delay-50">
+          <div class="skill-icon"><i class="fas fa-database"></i></div>
           <div class="skill-cat">Database</div>
           <div class="skill-name">Data Layer</div>
           <div class="skill-pills"><span class="pill">MySQL</span><span class="pill">SQL</span><span class="pill">Schema
               Design</span><span class="pill">Query Optimization</span></div>
         </div>
         <div class="skill scroll-animate delay-100">
+          <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
           <div class="skill-cat">Frontend</div>
           <div class="skill-name">Interface</div>
           <div class="skill-pills"><span class="pill">HTML5</span><span class="pill">CSS3</span><span
               class="pill">Bootstrap 5</span><span class="pill">JavaScript</span></div>
         </div>
         <div class="skill scroll-animate delay-150">
+          <div class="skill-icon"><i class="fas fa-tools"></i></div>
           <div class="skill-cat">Tooling</div>
           <div class="skill-name">Workflow</div>
           <div class="skill-pills"><span class="pill">Git</span><span class="pill">GitHub</span><span class="pill">VS
               Code</span><span class="pill">Agile</span></div>
         </div>
         <div class="skill scroll-animate delay-200">
+          <div class="skill-icon"><i class="fas fa-brain"></i></div>
           <div class="skill-cat">AI</div>
           <div class="skill-name">Augmented Dev</div>
           <div class="skill-pills"><span class="pill">OpenAI API</span><span class="pill">Resume Parsing</span><span
               class="pill">ATS Scoring</span></div>
         </div>
         <div class="skill scroll-animate delay-250">
+          <div class="skill-icon"><i class="fas fa-check-double"></i></div>
           <div class="skill-cat">Practice</div>
           <div class="skill-name">Discipline</div>
           <div class="skill-pills"><span class="pill">Code Review</span><span class="pill">Clean Commits</span><span
@@ -2126,7 +2209,7 @@
           <div class="proj-foot">
             <div class="proj-tags"><span class="t">Django</span><span class="t">MySQL</span><span
                 class="t">REST</span><span class="t">RBAC</span></div>
-            <div class="proj-arrow">→</div>
+            <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
           </div>
         </a>
         <a href="https://github.com/Saintgits-MCA/Lead-Management" target="_blank" rel="noopener noreferrer"
@@ -2139,7 +2222,7 @@
           <div class="proj-foot">
             <div class="proj-tags"><span class="t">Django</span><span class="t">DRF</span><span class="t">MySQL</span>
             </div>
-            <div class="proj-arrow">→</div>
+            <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
           </div>
         </a>
         <a href="https://github.com/PrudhwiRaj1/JobAi" target="_blank" rel="noopener noreferrer"
@@ -2152,7 +2235,7 @@
           <div class="proj-foot">
             <div class="proj-tags"><span class="t">Django</span><span class="t">OpenAI</span><span
                 class="t">Bootstrap</span></div>
-            <div class="proj-arrow">→</div>
+            <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
           </div>
         </a>
         <div class="proj scroll-animate delay-200">
@@ -2164,7 +2247,7 @@
           <div class="proj-foot">
             <div class="proj-tags"><span class="t">Arduino</span><span class="t">C++</span><span
                 class="t">Embedded</span></div>
-            <div class="proj-arrow">→</div>
+            <div class="proj-arrow"><i class="fas fa-arrow-right"></i></div>
           </div>
         </div>
         <div class="proj scroll-animate delay-300">
@@ -2245,37 +2328,37 @@
             Certifications & Events</h3>
           <div class="cert-list">
             <div class="cert">
-              <div class="ic">📘</div>
+              <div class="ic"><i class="fas fa-database"></i></div>
               <div class="body">
                 <h5>Databases & SQL for Data Science</h5><small>IBM · Coursera · 2024</small>
               </div>
             </div>
             <div class="cert">
-              <div class="ic">🧠</div>
+              <div class="ic"><i class="fas fa-brain"></i></div>
               <div class="body">
                 <h5>Computational Thinking</h5><small>Univ. of Michigan · 2021</small>
               </div>
             </div>
             <div class="cert">
-              <div class="ic">⚙️</div>
+              <div class="ic"><i class="fab fa-html5"></i></div>
               <div class="body">
                 <h5>HTML Essential Training</h5><small>LinkedIn Learning · 2022</small>
               </div>
             </div>
             <div class="cert">
-              <div class="ic">🎨</div>
+              <div class="ic"><i class="fas fa-code"></i></div>
               <div class="body">
                 <h5>Front-End Development</h5><small>Great Learning · 2022</small>
               </div>
             </div>
             <div class="cert">
-              <div class="ic">🛰️</div>
+              <div class="ic"><i class="fas fa-rocket"></i></div>
               <div class="body">
                 <h5>FOSS Tech Venture · SRISHTI 2024</h5><small>ICFOSS · Saintgits</small>
               </div>
             </div>
             <div class="cert">
-              <div class="ic">🎮</div>
+              <div class="ic"><i class="fas fa-gamepad"></i></div>
               <div class="body">
                 <h5>Game Dev · Web Bootcamp</h5><small>Tinkerhub · 2022-2024</small>
               </div>
@@ -2378,6 +2461,11 @@
         clarity and purpose</small></div>
   </footer>
 
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
   <script>
     // Fix: file:// anchor navigation triggers Chrome's "unique security origins" warning.
     // Intercept all internal #hash links and use scrollIntoView() instead.
@@ -2445,9 +2533,14 @@
       });
     })();
 
-    // Nav scroll effect
+    // Nav scroll effect + back-to-top
     const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 24), { passive: true });
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('stuck', window.scrollY > 24);
+      btt.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
     // Mobile menu
     const ham = document.getElementById('ham'), mobile = document.getElementById('mobile');
