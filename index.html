@@ -72,17 +72,17 @@
       --bg-3: #e8e2d8;
       --surface: #ffffff;
       --surface-2: #faf8f4;
-      --ink: #1c1c1c;
-      --ink-2: #3d3d3d;
-      --ink-3: #6b6b6b;
-      --ink-4: #2a2a2a;
-      --line: rgba(0, 0, 0, .08);
-      --line-soft: rgba(0, 0, 0, .04);
+      --ink: #1a1a1a;
+      --ink-2: #333333;
+      --ink-3: #5a5a5a;
+      --ink-4: #272727;
+      --line: rgba(0, 0, 0, .10);
+      --line-soft: rgba(0, 0, 0, .05);
       --accent: #c0392b;
       --accent-soft: rgba(192, 57, 43, .06);
       --accent-mid: rgba(192, 57, 43, .15);
-      --shadow: 0 2px 12px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, .1), 0 4px 12px rgba(0, 0, 0, .05);
+      --shadow: 0 2px 16px rgba(0, 0, 0, .07), 0 1px 3px rgba(0, 0, 0, .05);
+      --shadow-lg: 0 20px 48px rgba(0, 0, 0, .10), 0 6px 16px rgba(0, 0, 0, .06);
     }
 
     /* Reading progress bar */
@@ -1753,11 +1753,11 @@
       gap: 5px;
       padding: 3px 10px;
       border-radius: 20px;
-      background: rgba(192,57,43,.07);
-      border: 1px solid rgba(192,57,43,.18);
+      background: rgba(192,57,43,.08);
+      border: 1px solid rgba(192,57,43,.20);
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
-      color: #f3edec;
+      color: #a33125;
     }
     .gh-badge-academic {
       display: inline-flex;
@@ -1765,17 +1765,16 @@
       gap: 5px;
       padding: 3px 10px;
       border-radius: 20px;
-      background: rgba(41,128,185,.07);
-      border: 1px solid rgba(41,128,185,.18);
+      background: rgba(41,128,185,.08);
+      border: 1px solid rgba(41,128,185,.20);
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
-      color: #f6fafd;
+      color: #1e6fa0;
     }
     .gh-dot-personal {
       width: 5px; height: 5px;
       border-radius: 50%;
       background: #c0392b;
-       color: #f6fafd;
       display: inline-block;
       flex-shrink: 0;
     }
@@ -1805,7 +1804,7 @@
       line-height: 1;
     }
     .gh-stat-num.accent { color: var(--accent); }
-    .gh-stat-num.blue   { color: #2980b9; }
+    .gh-stat-num.blue   { color: #1e6fa0; }
     .gh-stat-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 8px;
@@ -1819,27 +1818,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #f6fafd;
       padding: 8px;
       border-radius: 8px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
       letter-spacing: .05em;
       text-decoration: none;
-      transition: background .2s;
+      transition: background .2s, color .2s;
     }
     .gh-link-personal {
-      border: 1px solid rgba(192,57,43,.22);
-      color: #f5f4f4;
-      background: rgba(192,57,43,.04);
+      border: 1px solid rgba(192,57,43,.25);
+      color: #a33125;
+      background: rgba(192,57,43,.05);
     }
-    .gh-link-personal:hover { background: rgba(192,57,43,.12); color: #f5dbdb; }
+    .gh-link-personal:hover { background: rgba(192,57,43,.14); color: #8b2a20; }
     .gh-link-academic {
-      border: 1px solid rgba(41,128,185,.22);
-      color: #eff1f1;
-      background: rgba(41,128,185,.04);
+      border: 1px solid rgba(41,128,185,.25);
+      color: #1e6fa0;
+      background: rgba(41,128,185,.05);
     }
-    .gh-link-academic:hover { background: rgba(41,128,185,.12); color: #bedbee; }
+    .gh-link-academic:hover { background: rgba(41,128,185,.14); color: #175a85; }
+
+    /* Dark-mode overrides for gh-card */
+    [data-theme="dark"] .gh-badge-personal { color: #e8847a; background: rgba(192,57,43,.14); border-color: rgba(192,57,43,.28); }
+    [data-theme="dark"] .gh-badge-academic { color: #64a8d6; background: rgba(41,128,185,.14); border-color: rgba(41,128,185,.28); }
+    [data-theme="dark"] .gh-stat-num.blue  { color: #64a8d6; }
+    [data-theme="dark"] .gh-link-personal  { color: #e8847a; border-color: rgba(232,132,122,.30); background: rgba(192,57,43,.08); }
+    [data-theme="dark"] .gh-link-personal:hover { background: rgba(192,57,43,.18); color: #f0a59d; }
+    [data-theme="dark"] .gh-link-academic  { color: #64a8d6; border-color: rgba(100,168,214,.30); background: rgba(41,128,185,.08); }
+    [data-theme="dark"] .gh-link-academic:hover { background: rgba(41,128,185,.18); color: #8cc0e0; }
   </style>
 </head>
 
