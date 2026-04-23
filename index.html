@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
- <link rel="icon" href="icon.ico">
+<link rel="shortcut icon" href="icon.ico" type="image/x-icon">
   <!-- Primary SEO -->
   <title>Prudhwi Raj Krishna V | Python & Django Backend Developer — Kottayam, Kerala</title>
   <meta name="description"
@@ -54,6 +54,7 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="all.min.css">
+  <link rel="stylesheet" href="bootstrap.min.css">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1733,6 +1734,112 @@
         font-size: 14px;
       }
     }
+
+    /* ── GitHub Activity Card ─────────────────────── */
+    .gh-card { display: flex; flex-direction: column; }
+    .gh-live-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: var(--ink-3);
+      letter-spacing: .06em;
+    }
+    .gh-desc {
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+    .gh-badge-personal {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(192,57,43,.07);
+      border: 1px solid rgba(192,57,43,.18);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #f3edec;
+    }
+    .gh-badge-academic {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(41,128,185,.07);
+      border: 1px solid rgba(41,128,185,.18);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #f6fafd;
+    }
+    .gh-dot-personal {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #c0392b;
+       color: #f6fafd;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .gh-dot-academic {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #2980b9;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .gh-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .gh-stat-cell {
+      background: var(--surface);
+      padding: 10px 6px;
+      text-align: center;
+    }
+    .gh-stat-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .gh-stat-num.accent { color: var(--accent); }
+    .gh-stat-num.blue   { color: #2980b9; }
+    .gh-stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--ink-3);
+      margin-top: 5px;
+    }
+    .gh-link-personal, .gh-link-academic {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f6fafd;
+      padding: 8px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .05em;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .gh-link-personal {
+      border: 1px solid rgba(192,57,43,.22);
+      color: #f5f4f4;
+      background: rgba(192,57,43,.04);
+    }
+    .gh-link-personal:hover { background: rgba(192,57,43,.12); color: #f5dbdb; }
+    .gh-link-academic {
+      border: 1px solid rgba(41,128,185,.22);
+      color: #eff1f1;
+      background: rgba(41,128,185,.04);
+    }
+    .gh-link-academic:hover { background: rgba(41,128,185,.12); color: #bedbee; }
   </style>
 </head>
 
@@ -1882,6 +1989,10 @@
             <div class="stat">
               <div class="n">4+</div>
               <div class="l">Active Projects</div>
+            </div>
+            <div class="stat">
+              <div class="n">40+</div>
+              <div class="l">GitHub Repos</div>
             </div>
           </div>
         </aside>
@@ -2056,17 +2167,40 @@
           <div class="proj-foot"><a href="#contact" class="proj-tags" style="color:var(--accent);">Get in touch →</a>
           </div>
         </div>
-        <div class="proj scroll-animate delay-300" style="background:var(--surface-2);">
-          <span class="proj-num">GitHub Activity</span>
-          <h3>Code, every day.</h3>
-          <p style="font-size:12px; margin-bottom: 8px;">Live contribution graph — verifying active development
-            practice.</p>
-          <a href="https://github.com/prudhwiraj1" target="_blank" rel="noopener noreferrer"
-            style="display:block; margin-top:auto;">
-            <img
-              src="https://github-readme-stats.vercel.app/api?username=prudhwiraj1&show_icons=true&hide_border=true&hide_title=true&count_private=true&theme=default&bg_color=00000000&text_color=6b6b6b&icon_color=c0392b"
-              alt="Prudhwi's GitHub contribution stats" style="width:100%; border-radius:8px;" loading="lazy" />
-          </a>
+        <div class="proj gh-card scroll-animate delay-300" style="background:var(--surface-2);">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="proj-num">GitHub Activity</span>
+            <span id="gh-live-label" class="gh-live-label">fetching…</span>
+          </div>
+          <h3 class="mb-1">Code, every day.</h3>
+          <p class="gh-desc mb-3">
+            <span class="gh-dot-personal"></span> @prudhwiraj1 &nbsp;·&nbsp;
+            <span class="gh-dot-academic"></span> @saintgits-mca
+          </p>
+          <!-- 4-column stats row -->
+          <div class="gh-stats-grid mb-3">
+            <div class="gh-stat-cell">
+              <div id="gh-repos-count" class="gh-stat-num accent">-</div>
+              <div class="gh-stat-label">Repos</div>
+            </div>
+            <div class="gh-stat-cell">
+              <div id="gh-stars-count" class="gh-stat-num blue">-</div>
+              <div class="gh-stat-label">Stars</div>
+            </div>
+            <div class="gh-stat-cell">
+              <div id="gh-commits-count" class="gh-stat-num accent">-</div>
+              <div class="gh-stat-label">Commits</div>
+            </div>
+            <div class="gh-stat-cell">
+              <div class="gh-stat-num blue">2020</div>
+              <div class="gh-stat-label">Since</div>
+            </div>
+          </div>
+          <!-- Profile links -->
+          <div class="d-flex gap-2 mt-auto">
+            <a href="https://github.com/prudhwiraj1" target="_blank" rel="noopener noreferrer" class="gh-link-personal">Personal ↗</a>
+            <a href="https://github.com/saintgits-mca" target="_blank" rel="noopener noreferrer" class="gh-link-academic">Academic ↗</a>
+          </div>
         </div>
       </div>
   </section>
@@ -2315,6 +2449,43 @@
 
     // Current year
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // GitHub combined live stats
+    (async function fetchGHStats() {
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      const h  = { 'Accept': 'application/vnd.github+json' };
+      const hc = { 'Accept': 'application/vnd.github.cloak-preview+json' };
+      try {
+        // Profiles — saintgits-mca is a USER account, not an org
+        const [u1, u2] = await Promise.all([
+          fetch('https://api.github.com/users/prudhwiraj1',  { headers: h }).then(r => r.json()),
+          fetch('https://api.github.com/users/saintgits-mca', { headers: h }).then(r => r.json())
+        ]);
+        set('gh-repos-count', ((u1.public_repos || 0) + (u2.public_repos || 0)) + '+');
+
+        // Repos for star counts
+        const [r1, r2] = await Promise.all([
+          fetch('https://api.github.com/users/prudhwiraj1/repos?per_page=100',   { headers: h }).then(r => r.json()).catch(() => []),
+          fetch('https://api.github.com/users/saintgits-mca/repos?per_page=100', { headers: h }).then(r => r.json()).catch(() => [])
+        ]);
+        const stars = [...(Array.isArray(r1) ? r1 : []), ...(Array.isArray(r2) ? r2 : [])]
+          .reduce((s, r) => s + (r.stargazers_count || 0), 0);
+        set('gh-stars-count', stars > 0 ? stars : '-');
+
+        // Commits — two separate searches (author: is ANDed, not ORed) then summed
+        const [c1, c2] = await Promise.all([
+          fetch('https://api.github.com/search/commits?q=author:prudhwiraj1&per_page=1',  { headers: hc }).then(r => r.json()).catch(() => ({})),
+          fetch('https://api.github.com/search/commits?q=author:saintgits-mca&per_page=1', { headers: hc }).then(r => r.json()).catch(() => ({}))
+        ]);
+        const totalCommits = (c1.total_count || 0) + (c2.total_count || 0);
+        set('gh-commits-count', totalCommits > 0 ? totalCommits + '+' : '-');
+
+        set('gh-live-label', 'live data');
+      } catch {
+        set('gh-repos-count', '40+'); set('gh-stars-count', '-'); set('gh-commits-count', '-');
+        set('gh-live-label', 'cached');
+      }
+    })();
   </script>
 </body>
 
