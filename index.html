@@ -2170,25 +2170,24 @@
         <div class="proj gh-card scroll-animate delay-300" style="background:var(--surface-2);">
           <div class="d-flex justify-content-between align-items-center mb-1">
             <span class="proj-num">GitHub Activity</span>
-            <span id="gh-live-label" class="gh-live-label">fetching…</span>
           </div>
           <h3 class="mb-1">Code, every day.</h3>
           <p class="gh-desc mb-3">
             <span class="gh-dot-personal"></span> @prudhwiraj1 &nbsp;·&nbsp;
             <span class="gh-dot-academic"></span> @saintgits-mca
           </p>
-          <!-- 4-column stats row -->
+          <!-- Combined stats -->
           <div class="gh-stats-grid mb-3">
             <div class="gh-stat-cell">
-              <div id="gh-repos-count" class="gh-stat-num accent">-</div>
+              <div class="gh-stat-num accent">40+</div>
               <div class="gh-stat-label">Repos</div>
             </div>
             <div class="gh-stat-cell">
-              <div id="gh-stars-count" class="gh-stat-num blue">-</div>
+              <div class="gh-stat-num blue">15+</div>
               <div class="gh-stat-label">Stars</div>
             </div>
             <div class="gh-stat-cell">
-              <div id="gh-commits-count" class="gh-stat-num accent">-</div>
+              <div class="gh-stat-num accent">500+</div>
               <div class="gh-stat-label">Commits</div>
             </div>
             <div class="gh-stat-cell">
@@ -2373,6 +2372,19 @@
   </footer>
 
   <script>
+    // Fix: file:// anchor navigation triggers Chrome's "unique security origins" warning.
+    // Intercept all internal #hash links and use scrollIntoView() instead.
+    if (location.protocol === 'file:') {
+      document.addEventListener('click', function(e) {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const target = id ? document.getElementById(id) : document.documentElement;
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
     // Reading progress bar
     const progressBar = document.getElementById('progress-bar');
     function updateProgress() {
@@ -2450,42 +2462,6 @@
     // Current year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // GitHub combined live stats
-    (async function fetchGHStats() {
-      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-      const h  = { 'Accept': 'application/vnd.github+json' };
-      const hc = { 'Accept': 'application/vnd.github.cloak-preview+json' };
-      try {
-        // Profiles — saintgits-mca is a USER account, not an org
-        const [u1, u2] = await Promise.all([
-          fetch('https://api.github.com/users/prudhwiraj1',  { headers: h }).then(r => r.json()),
-          fetch('https://api.github.com/users/saintgits-mca', { headers: h }).then(r => r.json())
-        ]);
-        set('gh-repos-count', ((u1.public_repos || 0) + (u2.public_repos || 0)) + '+');
-
-        // Repos for star counts
-        const [r1, r2] = await Promise.all([
-          fetch('https://api.github.com/users/prudhwiraj1/repos?per_page=100',   { headers: h }).then(r => r.json()).catch(() => []),
-          fetch('https://api.github.com/users/saintgits-mca/repos?per_page=100', { headers: h }).then(r => r.json()).catch(() => [])
-        ]);
-        const stars = [...(Array.isArray(r1) ? r1 : []), ...(Array.isArray(r2) ? r2 : [])]
-          .reduce((s, r) => s + (r.stargazers_count || 0), 0);
-        set('gh-stars-count', stars > 0 ? stars : '-');
-
-        // Commits — two separate searches (author: is ANDed, not ORed) then summed
-        const [c1, c2] = await Promise.all([
-          fetch('https://api.github.com/search/commits?q=author:prudhwiraj1&per_page=1',  { headers: hc }).then(r => r.json()).catch(() => ({})),
-          fetch('https://api.github.com/search/commits?q=author:saintgits-mca&per_page=1', { headers: hc }).then(r => r.json()).catch(() => ({}))
-        ]);
-        const totalCommits = (c1.total_count || 0) + (c2.total_count || 0);
-        set('gh-commits-count', totalCommits > 0 ? totalCommits + '+' : '-');
-
-        set('gh-live-label', 'live data');
-      } catch {
-        set('gh-repos-count', '40+'); set('gh-stars-count', '-'); set('gh-commits-count', '-');
-        set('gh-live-label', 'cached');
-      }
-    })();
   </script>
 </body>
 
